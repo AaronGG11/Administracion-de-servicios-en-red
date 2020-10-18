@@ -1,0 +1,408 @@
+********** Configuración de ejecución
+>>>>> Router 1 
+
+R1_b#show startup-config
+Using 828 bytes
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R1_b
+!
+!
+!
+enable secret 5 $1$mERr$CjpfMAUHM6CHxQcooblfY/
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 192.168.31.11 255.255.255.0
+!
+interface FastEthernet0/0
+ ip address 192.168.1.1 255.255.255.0
+ ip ospf priority 255
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 192.168.1.0 0.0.0.255 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+banner motd ^CBienvenid@ al router 1 escenario B^C
+!
+!
+!
+!
+!
+line con 0
+ password REDES
+ login
+!
+line aux 0
+!
+line vty 0 4
+ password ESCOM
+ login
+!
+!
+!
+end
+
+>>>>> Router 2 
+
+R2_b#show startup-config
+Using 828 bytes
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R2_b
+!
+!
+!
+enable secret 5 $1$mERr$CjpfMAUHM6CHxQcooblfY/
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 192.168.31.22 255.255.255.255
+!
+interface FastEthernet0/0
+ ip address 192.168.1.2 255.255.255.0
+ ip ospf priority 0
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 192.168.1.0 0.0.0.255 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+banner motd ^CBienvenid@ al router 2 escenario B^C
+!
+!
+!
+!
+!
+line con 0
+ password REDES
+ login
+!
+line aux 0
+!
+line vty 0 4
+ password ESCOM
+ login
+!
+!
+!
+end
+
+>>>>> Router 3
+
+R3_b#show startup-config
+Using 830 bytes
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R3_b
+!
+!
+!
+enable secret 5 $1$mERr$CjpfMAUHM6CHxQcooblfY/
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 192.168.31.33 255.255.255.255
+!
+interface FastEthernet0/0
+ ip address 192.168.1.3 255.255.255.0
+ ip ospf priority 100
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 192.168.1.0 0.0.0.255 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+banner motd ^CBienvenid@ al router 3 escenario B^C
+!
+!
+!
+!
+!
+line con 0
+ password REDES
+ login
+!
+line aux 0
+!
+line vty 0 4
+ password ESCOM
+ login
+!
+!
+!
+end
+
+
+
+********** Tabla de enrutamiento
+>>>>> Router 1 
+
+R1_b#show ip route
+Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+C    192.168.1.0/24 is directly connected, FastEthernet0/0
+C    192.168.31.0/24 is directly connected, Loopback0
+
+
+>>>>> Router 2 
+
+R2_b#show ip route
+Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+C    192.168.1.0/24 is directly connected, FastEthernet0/0
+     192.168.31.0/32 is subnetted, 1 subnets
+C       192.168.31.22 is directly connected, Loopback0
+
+
+>>>>> Router 3
+
+R3_b#show ip route
+Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+C    192.168.1.0/24 is directly connected, FastEthernet0/0
+     192.168.31.0/32 is subnetted, 1 subnets
+C       192.168.31.33 is directly connected, Loopback0
+
+
+
+********** Resumen de interfaces
+>>>>> Router 1 
+
+R1_b#show ip interface brief
+Interface              IP-Address      OK? Method Status                Protocol 
+FastEthernet0/0        192.168.1.1     YES NVRAM  up                    up 
+FastEthernet0/1        unassigned      YES NVRAM  administratively down down 
+Loopback0              192.168.31.11   YES manual up                    up
+
+>>>>> Router 2 
+
+R2_b#show ip interface brief
+Interface              IP-Address      OK? Method Status                Protocol 
+FastEthernet0/0        192.168.1.2     YES NVRAM  up                    up 
+FastEthernet0/1        unassigned      YES NVRAM  administratively down down 
+Loopback0              192.168.31.22   YES manual up                    up
+
+>>>>> Router 3
+
+R3_b#show ip interface brief
+Interface              IP-Address      OK? Method Status                Protocol 
+FastEthernet0/0        192.168.1.3     YES NVRAM  up                    up 
+FastEthernet0/1        unassigned      YES NVRAM  administratively down down 
+Loopback0              192.168.31.33   YES manual up                    up
+
+
+********** Resultado de "show ip protocols"
+>>>>> Router 1 
+
+R1_b#show ip protocols
+
+Routing Protocol is "ospf 1"
+  Outgoing update filter list for all interfaces is not set 
+  Incoming update filter list for all interfaces is not set 
+  Router ID 192.168.31.11
+  Number of areas in this router is 1. 1 normal 0 stub 0 nssa
+  Maximum path: 4
+  Routing for Networks:
+    192.168.1.0 0.0.0.255 area 0
+  Routing Information Sources:  
+    Gateway         Distance      Last Update 
+    192.168.31.11        110      00:07:58
+    192.168.31.22        110      00:07:58
+    192.168.31.33        110      00:06:43
+  Distance: (default is 110)
+
+>>>>> Router 2 
+
+R2_b#show ip protocols
+
+Routing Protocol is "ospf 1"
+  Outgoing update filter list for all interfaces is not set 
+  Incoming update filter list for all interfaces is not set 
+  Router ID 192.168.31.22
+  Number of areas in this router is 1. 1 normal 0 stub 0 nssa
+  Maximum path: 4
+  Routing for Networks:
+    192.168.1.0 0.0.0.255 area 0
+  Routing Information Sources:  
+    Gateway         Distance      Last Update 
+    192.168.31.11        110      00:07:53
+    192.168.31.22        110      00:07:53
+    192.168.31.33        110      00:06:38
+  Distance: (default is 110)
+
+>>>>> Router 3
+
+R3_b#show ip protocols
+
+Routing Protocol is "ospf 1"
+  Outgoing update filter list for all interfaces is not set 
+  Incoming update filter list for all interfaces is not set 
+  Router ID 192.168.31.33
+  Number of areas in this router is 1. 1 normal 0 stub 0 nssa
+  Maximum path: 4
+  Routing for Networks:
+    192.168.1.0 0.0.0.255 area 0
+  Routing Information Sources:  
+    Gateway         Distance      Last Update 
+    192.168.31.11        110      00:17:50
+    192.168.31.22        110      00:23:07
+    192.168.31.33        110      00:06:38
+  Distance: (default is 110)
